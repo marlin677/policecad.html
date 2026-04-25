@@ -5,246 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NZ EMERGENCY SERVICES | ULTIMATE CAD</title>
     <style>
-        :root {
-            --police-blue: #051937;
-            --nz-gold: #c5a059;
-            --dark-bg: #0b0b0b;
-            --panel-bg: #161616;
-            --text: #ffffff;
-            --accent: #00ff00;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--text);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        header {
-            background-color: var(--police-blue);
-            border-bottom: 3px solid var(--nz-gold);
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        main {
-            display: grid;
-            grid-template-columns: 350px 1fr 350px;
-            gap: 10px;
-            padding: 10px;
-            flex-grow: 1;
-            overflow: hidden;
-        }
-
-        .panel {
-            background: var(--panel-bg);
-            border: 1px solid #333;
-            display: flex;
-            flex-direction: column;
-            border-radius: 4px;
-        }
-
-        .panel-title {
-            background: #222;
-            padding: 10px;
-            font-weight: bold;
-            text-align: center;
-            border-bottom: 2px solid var(--nz-gold);
-            text-transform: uppercase;
-            font-size: 0.85rem;
-        }
-
-        .scroll-area {
-            padding: 10px;
-            overflow-y: auto;
-            flex-grow: 1;
-        }
-
-        /* DATABASE TABLE STYLES */
-        .db-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.7rem;
-        }
-
+        :root { --police-blue: #051937; --nz-gold: #c5a059; --dark-bg: #0b0b0b; --panel-bg: #161616; --text: #ffffff; --accent: #00ff00; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--dark-bg); color: var(--text); margin: 0; display: flex; flex-direction: column; height: 100vh; }
+        header { background-color: var(--police-blue); border-bottom: 3px solid var(--nz-gold); padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+        main { display: grid; grid-template-columns: 350px 1fr 350px; gap: 10px; padding: 10px; flex-grow: 1; overflow: hidden; }
+        .panel { background: var(--panel-bg); border: 1px solid #333; display: flex; flex-direction: column; border-radius: 4px; }
+        .panel-title { background: #222; padding: 10px; font-weight: bold; text-align: center; border-bottom: 2px solid var(--nz-gold); text-transform: uppercase; font-size: 0.85rem; }
+        .scroll-area { padding: 10px; overflow-y: auto; flex-grow: 1; }
+        .db-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; }
         .db-table tr:nth-child(even) { background: #1a1a1a; }
         .db-table td { padding: 6px 4px; border-bottom: 1px solid #222; }
-        .cat-header {
-            background: var(--police-blue);
-            color: var(--nz-gold);
-            font-weight: bold;
-            text-align: center;
-            font-size: 0.75rem;
-            padding: 5px !important;
-        }
+        .cat-header { background: var(--police-blue); color: var(--nz-gold); font-weight: bold; text-align: center; font-size: 0.75rem; padding: 5px !important; }
         .code-num { color: var(--accent); font-weight: bold; width: 50px; }
-
-        /* INPUTS & INTERFACE */
-        input, textarea {
-            width: 100%;
-            background: #000;
-            border: 1px solid #444;
-            color: var(--accent);
-            padding: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-            border-radius: 3px;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background: var(--police-blue);
-            color: white;
-            border: 1px solid var(--nz-gold);
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
+        input, textarea { width: 100%; background: #000; border: 1px solid #444; color: var(--accent); padding: 8px; margin-bottom: 10px; box-sizing: border-box; border-radius: 3px; }
+        button { width: 100%; padding: 12px; background: var(--police-blue); color: white; border: 1px solid var(--nz-gold); cursor: pointer; font-weight: bold; text-transform: uppercase; }
         button:hover { background: #0a2a5a; }
-
-        .call-card {
-            border-left: 4px solid #e74c3c;
-            background: #222;
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 0 4px 4px 0;
-        }
+        .call-card { border-left: 4px solid #e74c3c; background: #222; padding: 12px; margin-bottom: 10px; border-radius: 0 4px 4px 0; }
     </style>
 </head>
 <body>
-
 <header>
     <div><strong>NEW ZEALAND POLICE</strong> | NATIONAL DISPATCH TERMINAL</div>
     <div id="clock" style="font-family: monospace; font-size: 1.2rem; color: var(--nz-gold);"></div>
 </header>
-
 <main>
-    <section class="panel">
-        <div class="panel-title">Master Code Database</div>
-        <div class="scroll-area">
-            <table class="db-table">
-                <tr class="cat-header"><td colspan="2">10-STATUS CODES</td></tr>
-                <tr><td class="code-num">10-0</td><td>Radio Silence / Caution</td></tr>
-                <tr><td class="code-num">10-1</td><td>Unable to copy</td></tr>
-                <tr><td class="code-num">10-2</td><td>En-route to job</td></tr>
-                <tr><td class="code-num">10-3</td><td>Available / Active</td></tr>
-                <tr><td class="code-num">10-4</td><td>Repeat message</td></tr>
-                <tr><td class="code-num">10-5</td><td>Out of service (short time)</td></tr>
-                <tr><td class="code-num">10-6</td><td>Busy / Change Channel</td></tr>
-                <tr><td class="code-num">10-7</td><td>Arrived at job</td></tr>
-                <tr><td class="code-num">10-8</td><td>Busy but available</td></tr>
-                <tr><td class="code-num">10-9</td><td>Urgent Message</td></tr>
-                <tr><td class="code-num">10-10</td><td>Officer Needs Assistance</td></tr>
-                <tr><td class="code-num">10-20</td><td>Location?</td></tr>
-                <tr><td class="code-num">10-21</td><td>On Phone</td></tr>
-                <tr><td class="code-num">10-90</td><td>Fire Alarm Activation</td></tr>
-
-                <tr class="cat-header"><td colspan="2">6000+ OFFENCE CODES</td></tr>
-                <tr><td class="code-num">6820</td><td>Unlawful Possession of Firearm</td></tr>
-                <tr><td class="code-num">6851</td><td>Offence Re Licences (Firearms)</td></tr>
-                <tr><td class="code-num">6853</td><td>Intoxicated in charge of Firearm</td></tr>
-                <tr><td class="code-num">6854</td><td>Discharge Firearm near Dwelling</td></tr>
-                <tr><td class="code-num">6861</td><td>Present Firearm at Person</td></tr>
-                <tr><td class="code-num">6866</td><td>Use Firearm to Resist Arrest</td></tr>
-                <tr><td class="code-num">6867</td><td>Possess Firearm in Crime</td></tr>
-                <tr><td class="code-num">6D</td><td>Bail Breach</td></tr>
-                <tr><td class="code-num">6E</td><td>E-Bail Alarm Activation</td></tr>
-                <tr><td class="code-num">6I</td><td>Illegal Street Racing</td></tr>
-
-                <tr class="cat-header"><td colspan="2">K-RESULT CODES</td></tr>
-                <tr><td class="code-num">K1</td><td>No further action / Proceeding</td></tr>
-                <tr><td class="code-num">K2</td><td>Event held until later / On Scene</td></tr>
-                <tr><td class="code-num">K3</td><td>No offence disclosed / Controlled</td></tr>
-                <tr><td class="code-num">K6</td><td>Reported / Documentation filed</td></tr>
-                <tr><td class="code-num">K9</td><td>Arrest Made</td></tr>
-
-                <tr class="cat-header"><td colspan="2">FIRE (FENZ) CODES</td></tr>
-                <tr><td class="code-num">K88</td><td>Fire Confirmed / Structure Fire</td></tr>
-                <tr><td class="code-num">K99</td><td>Major Incident / Multi-Agency</td></tr>
-                <tr><td class="code-num">762</td><td>Unintentional (Manual Call Point)</td></tr>
-                <tr><td class="code-num">732</td><td>Smoke Detector Malfunction</td></tr>
-            </table>
-        </div>
-    </section>
-
-    <section class="panel">
-        <div class="panel-title">Active Response Monitor</div>
-        <div class="scroll-area" id="log">
-            <div class="call-card" style="border-color: var(--nz-gold);">
-                <strong>SYSTEM READY</strong><br>
-                <small>Standing by for unit status and incident dispatch.</small>
-            </div>
-        </div>
-    </section>
-
-    <section class="panel">
-        <div class="panel-title">Dispatcher Interface</div>
-        <div class="scroll-area">
-            <label>INCIDENT CODE (10-90 / 6820 / etc)</label>
-            <input type="text" id="in_code" placeholder="Enter Code">
-            
-            <label>LOCATION</label>
-            <input type="text" id="in_loc" placeholder="Suburb / Street">
-            
-            <label>ASSIGNED UNITS</label>
-            <input type="text" id="in_units" placeholder="e.g. Northland 1, FENZ 51">
-            
-            <label>INCIDENT LOG / NOTES</label>
-            <textarea id="in_notes" rows="6" placeholder="Details..."></textarea>
-            
-            <button onclick="postIncident()">TRANSMIT TO ALL UNITS</button>
-
-            <div style="margin-top:20px; border-top: 1px solid #444; padding-top: 10px;">
-                <label>INTEL SEARCH (DATABASE)</label>
-                <input type="text" placeholder="Name or License Plate">
-                <button style="background: #333;">QUERY NIA DATABASE</button>
-            </div>
-        </div>
-    </section>
+    <section class="panel"><div class="panel-title">Master Code Database</div><div class="scroll-area">
+        <table class="db-table">
+            <tr class="cat-header"><td colspan="2">10-STATUS CODES</td></tr>
+            <tr><td class="code-num">10-0</td><td>Radio Silence / Caution</td></tr>
+            <tr><td class="code-num">10-1</td><td>Unable to copy</td></tr>
+            <tr><td class="code-num">10-2</td><td>En-route to job</td></tr>
+            <tr><td class="code-num">10-3</td><td>Available / Active</td></tr>
+            <tr><td class="code-num">10-7</td><td>Arrived at job</td></tr>
+            <tr><td class="code-num">10-9</td><td>Urgent Message</td></tr>
+            <tr><td class="code-num">10-90</td><td>Fire Alarm Activation</td></tr>
+            <tr class="cat-header"><td colspan="2">6000+ OFFENCE CODES</td></tr>
+            <tr><td class="code-num">6820</td><td>Unlawful Possession of Firearm</td></tr>
+            <tr><td class="code-num">6861</td><td>Present Firearm at Person</td></tr>
+            <tr class="cat-header"><td colspan="2">K-RESULT CODES</td></tr>
+            <tr><td class="code-num">K1</td><td>Proceeding</td></tr>
+            <tr><td class="code-num">K9</td><td>Arrest Made</td></tr>
+        </table>
+    </div></section>
+    <section class="panel"><div class="panel-title">Active Response Monitor</div><div class="scroll-area" id="log">
+        <div class="call-card" style="border-color: var(--nz-gold);"><strong>SYSTEM READY</strong><br><small>Standing by for unit status.</small></div>
+    </div></section>
+    <section class="panel"><div class="panel-title">Dispatcher Interface</div><div class="scroll-area">
+        <label>CODE</label><input type="text" id="in_code"><label>LOCATION</label><input type="text" id="in_loc">
+        <label>UNITS</label><input type="text" id="in_units"><label>NOTES</label><textarea id="in_notes" rows="6"></textarea>
+        <button onclick="postIncident()">TRANSMIT</button>
+    </div></section>
 </main>
-
 <script>
-    function updateTime() {
-        const now = new Date();
-        document.getElementById('clock').innerText = now.toLocaleTimeString('en-NZ');
-    }
-    setInterval(updateTime, 1000);
-    updateTime();
-
+    function updateTime() { document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-NZ'); }
+    setInterval(updateTime, 1000); updateTime();
     function postIncident() {
         const code = document.getElementById('in_code').value;
         const loc = document.getElementById('in_loc').value;
         const units = document.getElementById('in_units').value;
         const notes = document.getElementById('in_notes').value;
-
         if(!code || !loc) return;
-
         const log = document.getElementById('log');
         const card = document.createElement('div');
         card.className = 'call-card';
-        card.innerHTML = `
-            <strong>${code} | ${loc}</strong><br>
-            <span style="color:var(--nz-gold)">UNITS: ${units}</span><br>
-            <small>${notes}</small><br>
-            <div style="font-size:0.6rem; margin-top:5px; color:#666;">TIMESTAMP: ${new Date().toLocaleTimeString()}</div>
-        `;
+        card.innerHTML = `<strong>${code} | ${loc}</strong><br><span style="color:var(--nz-gold)">UNITS: ${units}</span><br><small>${notes}</small>`;
         log.prepend(card);
-
-        // Clear inputs
-        document.getElementById('in_code').value = '';
-        document.getElementById('in_loc').value = '';
-        document.getElementById('in_units').value = '';
-        document.getElementById('in_notes').value = '';
+        document.getElementById('in_code').value = ''; document.getElementById('in_loc').value = '';
     }
 </script>
-
 </body>
 </html>
